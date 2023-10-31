@@ -4,76 +4,49 @@ import { Button, Input } from "../components";
 import { globals, loginStyle } from "../styles";
 import { useNavigation } from "@react-navigation/native";
 
+import { login } from "../api/auth/auth";
+import { socket } from "../services/socketInstance";
+import { useUserContext } from "../hooks/useUserContext";
+import { storeObject } from "../helpers/asyncStorage";
+
 const Login = () => {
   const navigation = useNavigation();
   const [isCafeOwner, setIsCafeOwner] = useState(false);
-  const [matricNo, setMatricNo] = useState("");
-  const [username, setUsername] = useState("");
+  const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useUserContext();
 
-  const handleLogin = () => {
-    // Simulate checking credentials
-    const user = findUserByUsername(isCafeOwner ? username : matricNo);
+  const handleLogin = async () => {
+    // API call
+    try {
+      const user = await login(id, password);
+      socket.emit("user:connect", { id });
 
-    if (!user) {
-      // User not found, show an error message or handle accordingly
-      alert("User not found. Please try again.");
-      return;
-    }
+      // Update context
+      const details = {
+        id: id,
+        isSignedIn: true,
+        role: user,
+      };
+      setUser(details);
+      storeObject("userDetails", details);
 
-    if (user.password !== password) {
-      // Password is incorrect, show an error message or handle accordingly
-      alert("Incorrect password. Please try again.");
-      return;
-    }
-
-    if (user.userType === "cafeOwner") {
-      // Navigate to the cafe owner dashboard
-      navigation.navigate("CODashboard");
-    } else if (user.userType === "student") {
-      if (user.isB40) {
-        // User belongs to the B40 group, navigate to B40 dashboard
+      if (user === "B40") {
         navigation.navigate("B40Dashboard");
-      } else {
-        // User is a regular student, navigate to the student dashboard
+      }
+      if (user === "NON-B40") {
         navigation.navigate("Dashboard");
       }
+      if (user === "CAFE") {
+        navigation.navigate("CODashboard");
+      }
+
+      // Error for no role specified here
+      // Error message suggestion: Pop-up error
+    } catch (error) {
+      // Look for status code & message
+      console.log(error);
     }
-  };
-
-  // Function to find a user by username or matricNo
-  const findUserByUsername = (usernameOrMatricNo) => {
-    // Replace this with your actual logic to search for the user in your local database
-    // For now, we'll use a hardcoded array of user data for demonstration purposes
-
-    const userData = [
-      {
-        //student b40
-        matricNo: "123",
-        password: "123",
-        userType: "student",
-        isB40: true,
-      },
-      {
-        //student non-b40
-        matricNo: "456",
-        password: "456",
-        userType: "student",
-        isB40: false,
-      },
-      {
-        //cafe owner
-        username: "cafeowner",
-        password: "cafeowner",
-        userType: "cafeOwner",
-      },
-    ];
-
-    return userData.find(
-      (user) =>
-        user.matricNo === usernameOrMatricNo ||
-        user.username === usernameOrMatricNo
-    );
   };
 
   return (
@@ -81,8 +54,7 @@ const Login = () => {
       style={[
         globals.container,
         { justifyContent: "center", paddingHorizontal: 16 },
-      ]}
-    >
+      ]}>
       <View>
         <Image
           style={{
@@ -94,15 +66,11 @@ const Login = () => {
           source={require("../assets/eKupon/logo.png")}
         />
         <Text style={loginStyle.loginHeader}>eKuponXLoyalty@UniSZA</Text>
-        {isCafeOwner ? (
-          <Input label={"Username |"} value={username} onChange={setUsername} />
-        ) : (
-          <Input
-            label={"Matric No. |"}
-            value={matricNo}
-            onChange={setMatricNo}
-          />
-        )}
+        <Input
+          label={isCafeOwner ? "Username |" : "Matric No. |"}
+          value={id}
+          onChange={setId}
+        />
         <Input
           label={"Password |"}
           secureTextEntry={true}

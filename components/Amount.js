@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const Amount = ({ amount, student }) => {
+const Amount = ({ amount, subTitle }) => {
   return (
     <View style={amountStyle.amountContainer}>
       <Text
@@ -10,7 +10,7 @@ const Amount = ({ amount, student }) => {
           { fontSize: 12, fontWeight: "500" },
         ]}
       >
-        {"Total Point"}
+        {subTitle}
       </Text>
       <Text style={amountStyle.amountBigText}>{amount}</Text>
 
