@@ -4,6 +4,8 @@ import Profile from "../../components/Profile";
 import Amount from "../../components/Amount";
 import TransactionContainer from "../../components/TransactionContainer";
 import Button from "../../components/Button";
+import B40TransactionList from "../../components/B40TransactionList";
+import B40dummyData from "../../components/B40dummyData";
 import { globals, dashboardStyle } from "../../styles";
 import { useNavigation } from "@react-navigation/native";
 import FeatherIcon from "react-native-vector-icons/Feather";
@@ -16,6 +18,9 @@ const B40Dashboard = () => {
   const { user } = useUserContext();
   const [profile, setProfile] = useState({});
 
+  const showTransaction = () => {
+    navigation.navigate("B40Transaction"); // Replace route name
+  };
   const handlePay = () => {
     navigation.navigate("PayNow"); // Replace route name
   };
@@ -62,18 +67,19 @@ const B40Dashboard = () => {
           <FeatherIcon
             name="more-horizontal"
             size={25}
-            onPress={() => navigation.navigate("Transactions")}
+            onPress={showTransaction}
           />
         </View>
         <TransactionContainer>
-          <Text
+          {/* <Text
             style={[
               dashboardStyle.transactionHeader,
               { marginTop: 24, marginBottom: 24 },
             ]}
           >
             No recent transactions
-          </Text>
+          </Text> */}
+          <B40TransactionList data={B40dummyData} />
         </TransactionContainer>
       </View>
     </View>

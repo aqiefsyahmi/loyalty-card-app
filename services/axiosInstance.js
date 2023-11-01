@@ -3,7 +3,7 @@ import { renewToken } from "../api/auth/auth";
 import { getObject, storeObject } from "../helpers/asyncStorage";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3000", // store in env
+  baseURL: "https://9xqngmhn-3000.asse.devtunnels.ms/", // store in env
 });
 
 // Axios interceptor handle access token authentication

@@ -54,7 +54,8 @@ const Login = () => {
       style={[
         globals.container,
         { justifyContent: "center", paddingHorizontal: 16 },
-      ]}>
+      ]}
+    >
       <View>
         <Image
           style={{

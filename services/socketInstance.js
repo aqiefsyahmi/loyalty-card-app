@@ -7,7 +7,7 @@ const getToken = async () => {
   return token?.accessToken;
 };
 
-export const socket = io("http://localhost:3000", {
+export const socket = io("https://9xqngmhn-3000.asse.devtunnels.ms/", {
   auth: {
     token: await getToken(),
   },

@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import Profile from "../../components/Profile";
 import COAmount from "../../components/COAmount";
 import TransactionContainer from "../../components/TransactionContainer";
+import COTransactionList from "../../components/COTransactionList";
+import COdummyData from "../../components/COdummyData";
 import Button from "../../components/Button";
 import { globals, dashboardStyle } from "../../styles";
 import { useNavigation } from "@react-navigation/native";
@@ -11,6 +13,9 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 const CODashboard = () => {
   const navigation = useNavigation();
 
+  const showTransaction = () => {
+    navigation.navigate("COTransaction"); // Replace route name
+  };
   const handleShowQR = () => {
     navigation.navigate("COShowQR"); // Replace route name
   };
@@ -40,18 +45,11 @@ const CODashboard = () => {
           <FeatherIcon
             name="more-horizontal"
             size={25}
-            onPress={() => navigation.navigate("Transactions")}
+            onPress={showTransaction}
           />
         </View>
         <TransactionContainer>
-          <Text
-            style={[
-              dashboardStyle.transactionHeader,
-              { marginTop: 24, marginBottom: 24 },
-            ]}
-          >
-            No recent transactions
-          </Text>
+          <COTransactionList data={COdummyData} />
         </TransactionContainer>
       </View>
     </View>

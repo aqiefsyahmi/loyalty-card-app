@@ -10,7 +10,7 @@ import {
   Profile,
   Report,
   ChangePassword,
-  Transaction,
+  NB40Transaction,
   CollectPoint,
   ClaimReward,
   CashlessCampaign,
@@ -29,6 +29,7 @@ import {
   MyQRGreenCampus,
   MyPINGeneratorCashless,
   MyPINGeneratorGreenCampus,
+  COTransaction,
 
   //B40 Student
   B40Dashboard,
@@ -43,6 +44,7 @@ import {
   B40PINGreenCampusCampaign,
   B40QRCashlessCampaign,
   B40QRGreenCampusCampaign,
+  B40Transaction,
 } from "./pages";
 import { useEffect, useState } from "react";
 import { UserContext } from "./context/UserContext";
@@ -71,8 +73,8 @@ function StudentDrawerNavigator() {
         }}
       />
       <StudentDrawer.Screen
-        name="Transactions"
-        component={Transaction}
+        name="NB40Transaction"
+        component={NB40Transaction}
         options={{
           headerTitle: "Transaction History",
           drawerLabel: "Transaction History",
@@ -116,8 +118,8 @@ function CafeOwnerDrawerNavigator() {
         }}
       />
       <CafeOwnerDrawer.Screen
-        name="Transactions"
-        component={Transaction}
+        name="COTransaction"
+        component={COTransaction}
         options={{
           headerTitle: "Transaction History",
           drawerLabel: "Transaction History",
@@ -169,8 +171,8 @@ function B40StudentDrawerNavigator() {
         }}
       />
       <B40StudentDrawer.Screen
-        name="Transactions"
-        component={Transaction}
+        name="B40Transaction"
+        component={B40Transaction}
         options={{
           headerTitle: "Transaction History",
           drawerLabel: "Transaction History",

@@ -1,11 +1,11 @@
 import Login from "./Login";
 
-//Student
+//NB40 Student
 import Dashboard from "./non-b40-student/Dashboard";
 import Profile from "./Profile";
 import Report from "./Report";
 import ChangePassword from "./ChangePassword";
-import Transaction from "./non-b40-student/Transaction";
+import NB40Transaction from "./non-b40-student/NB40Transaction";
 import CollectPoint from "./non-b40-student/CollectPoint";
 import ClaimReward from "./non-b40-student/ClaimReward";
 import CashlessCampaign from "./non-b40-student/CashlessCampaign";
@@ -24,6 +24,7 @@ import MyQRCashless from "./cafe-owner/MyQRCashless";
 import MyQRGreenCampus from "./cafe-owner/MyQRGreenCampus";
 import MyPINGeneratorCashless from "./cafe-owner/MyPINGeneratorCashless";
 import MyPINGeneratorGreenCampus from "./cafe-owner/MyPINGeneratorGreenCampus";
+import COTransaction from "./cafe-owner/COTransaction";
 
 //B40 Student
 import B40Dashboard from "./b40-student/B40Dashboard";
@@ -38,16 +39,17 @@ import B40PINCashlessCampaign from "./b40-student/B40PINCashlessCampaign";
 import B40PINGreenCampusCampaign from "./b40-student/B40PINGreenCampusCampaign";
 import B40QRCashlessCampaign from "./b40-student/B40QRCashlessCampaign";
 import B40QRGreenCampusCampaign from "./b40-student/B40QRGreenCampusCampaign";
+import B40Transaction from "./b40-student/B40Transaction";
 
 export {
   Login,
 
-  //Student
+  //Non-B40 Student
   Dashboard,
   Profile,
   Report,
   ChangePassword,
-  Transaction,
+  NB40Transaction,
   CollectPoint,
   ClaimReward,
   CashlessCampaign,
@@ -61,6 +63,7 @@ export {
   CODashboard,
   COShowQR,
   COShowPIN,
+  COTransaction,
   MyQReKupon,
   MyQRCashless,
   MyQRGreenCampus,
@@ -80,4 +83,5 @@ export {
   B40PINGreenCampusCampaign,
   B40QRCashlessCampaign,
   B40QRGreenCampusCampaign,
+  B40Transaction,
 };

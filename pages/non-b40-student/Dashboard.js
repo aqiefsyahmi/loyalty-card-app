@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import Profile from "../../components/Profile";
 import Amount from "../../components/Amount";
 import TransactionContainer from "../../components/TransactionContainer";
+import NB40TransactionList from "../../components/NB40TransactionList";
+import NB40dummyData from "../../components/NB40dummyData";
 import Button from "../../components/Button";
 import { globals, dashboardStyle } from "../../styles";
 import { useNavigation } from "@react-navigation/native";
@@ -11,6 +13,9 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 const Dashboard = () => {
   const navigation = useNavigation();
 
+  const showTransaction = () => {
+    navigation.navigate("NB40Transaction"); // Replace route name
+  };
   const handleCP = () => {
     navigation.navigate("CollectPoint"); // Replace route name
   };
@@ -21,7 +26,7 @@ const Dashboard = () => {
   return (
     <View style={globals.container}>
       <View style={[dashboardStyle.logoutContainer, { marginTop: 16 }]}>
-        <Profile textField1={"Muhammad Ali"} textField2={"012345"} />
+        <Profile textField1={"Muhammad Ali"} textField2={"543210"} />
       </View>
       <View style={{ marginTop: 24 }}>
         <Amount amount={"20.00"} />
@@ -40,18 +45,11 @@ const Dashboard = () => {
           <FeatherIcon
             name="more-horizontal"
             size={25}
-            onPress={() => navigation.navigate("Transactions")}
+            onPress={showTransaction}
           />
         </View>
         <TransactionContainer>
-          <Text
-            style={[
-              dashboardStyle.transactionHeader,
-              { marginTop: 24, marginBottom: 24 },
-            ]}
-          >
-            No recent transactions
-          </Text>
+          <NB40TransactionList data={NB40dummyData} />
         </TransactionContainer>
       </View>
     </View>
