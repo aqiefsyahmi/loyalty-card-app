@@ -1,6 +1,6 @@
 # loyaltyxekupon-e-wallet-mobile
 
 ## To Run The Apps
-"bash
+```bash
  npx expo start
- "
+```
