@@ -29,9 +29,9 @@ const PayNow = () => {
 
   const SelectCafe = () => {
     if (active.btn1) {
-      navigation.navigate("PayCafeWeb"); // Navigate to the "CashlessScreen" when btn1 is active
+      navigation.navigate("PayCafeWeb", { amount: 1 }); // Navigate to the "CashlessScreen" when btn1 is active
     } else if (active.btn2) {
-      navigation.navigate("PayCafeWeb"); // Navigate to the "GreenCampusScreen" when btn2 is active
+      navigation.navigate("PayCafeWeb", { amount: 2 }); // Navigate to the "GreenCampusScreen" when btn2 is active
     }
   };
 

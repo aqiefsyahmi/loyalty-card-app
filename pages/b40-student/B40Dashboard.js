@@ -45,6 +45,7 @@ const B40Dashboard = () => {
     socket.emit("student:get-wallet-total", { matricNo: user?.id });
     socket.on("student:get-wallet-total", (res) => {
       setCoupon(res.coupon.total);
+      console.log(res.transaction.transaction);
     });
   }, [socket]);
 

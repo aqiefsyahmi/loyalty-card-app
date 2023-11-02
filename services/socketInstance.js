@@ -15,3 +15,10 @@ export const socket = io(EXPO_PUBLIC_API_URL, {
     token: await getToken(),
   },
 }); // store in env
+
+socket.on("connect_error", async (err) => {
+  if (err.message === "authentication error") {
+    socket.auth.token = await getToken();
+  }
+  socket.connect();
+});

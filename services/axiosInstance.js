@@ -4,10 +4,6 @@ import { getObject, storeObject } from "../helpers/asyncStorage";
 
 import { EXPO_PUBLIC_API_URL } from "@env";
 
-// const api = axios.create({
-//   baseURL: "https://9xqngmhn-3000.asse.devtunnels.ms/",
-// });
-
 export const api = axios.create({
   baseURL: EXPO_PUBLIC_API_URL,
 });
@@ -39,17 +35,15 @@ api.interceptors.response.use(
     if (error.response.status === 403 && !originalRequest._retry) {
       originalRequest._retry = true;
       const newToken = await renewToken();
-      console.log(newToken);
       // Store access token
-      if (newToken) {
-        const oldToken = await getObject("token");
-        oldToken.accessToken = newToken.data.accessToken;
-        await storeObject("token", oldToken);
-      }
+      const oldToken = await getObject("token");
+      oldToken.accessToken = newToken.data.accessToken;
+      await storeObject("token", oldToken);
 
       axios.defaults.headers.common[
         "Authorization"
-      ] = `Bearer ${token?.accessToken}`;
+      ] = `Bearer ${newToken.data.accessToken}`;
+
       return api(originalRequest);
     }
     return Promise.reject(error);
