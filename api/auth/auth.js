@@ -17,9 +17,11 @@ export const login = async (id, password) => {
 // Renew token
 export const renewToken = async () => {
   const token = await getObject("token");
-  return await api.post("/auth/token", {
+  const newToken = await api.post("/auth/token", {
     refreshToken: token.refreshToken,
   });
+
+  return newToken;
 };
 
 // Logout

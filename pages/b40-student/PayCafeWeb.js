@@ -4,6 +4,7 @@ import { RadioButton } from "react-native-radio-buttons-group";
 import { Button, Refresh } from "../../components";
 import { globals } from "../../styles";
 import { useNavigation } from "@react-navigation/native";
+import { api } from "../../services/axiosInstance";
 
 const PayCafeWeb = () => {
   const navigation = useNavigation();
@@ -107,6 +108,17 @@ const PayCafeWeb = () => {
     }));
     setRadioBtn(updatedRadioBtn);
   };
+
+  useEffect(() => {
+    api
+      .get("/student/cafe")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   return (
     <View style={[globals.container]}>

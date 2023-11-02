@@ -12,11 +12,13 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 
 import { socket } from "../../services/socketInstance";
 import { useUserContext } from "../../hooks/useUserContext";
+import { api } from "../../services/axiosInstance";
 
 const B40Dashboard = () => {
   const navigation = useNavigation();
   const { user } = useUserContext();
-  const [profile, setProfile] = useState({});
+  const [coupon, setCoupon] = useState(0);
+  const [name, setName] = useState("...");
 
   const showTransaction = () => {
     navigation.navigate("B40Transaction"); // Replace route name
@@ -32,23 +34,27 @@ const B40Dashboard = () => {
   };
 
   useEffect(() => {
+    api
+      .get(`/student/${user?.id}`)
+      .then((res) => {
+        setName(res.data.student.user.profile.name);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     socket.emit("student:get-wallet-total", { matricNo: user?.id });
     socket.on("student:get-wallet-total", (res) => {
-      setProfile(res);
-      console.log(res);
+      setCoupon(res.coupon.total);
     });
-  }, []);
+  }, [socket]);
 
   return (
     <View style={globals.container}>
       <View style={[dashboardStyle.logoutContainer, { marginTop: 16 }]}>
-        <Profile textField1={"Muhammad Hazman"} textField2={"062711"} />
+        <Profile textField1={name} textField2={user?.id} />
       </View>
       <View style={{ marginTop: 24 }}>
-        <Amount
-          amount={`RM ${profile?.coupon?.total}.00`}
-          subTitle={"Total coupon"}
-        />
+        <Amount amount={`RM ${coupon}.00`} subTitle={"Total coupon"} />
       </View>
       <View style={{ marginTop: 20 }}>
         <Button label={"Pay"} onPress={handlePay} />
